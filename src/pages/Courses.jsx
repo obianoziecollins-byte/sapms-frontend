@@ -114,6 +114,7 @@ const SemesterBlock = ({ label, enrollments, studentLevel, allEnrollments, prere
     } finally { setDropping(null); }
   };
 
+
   return (
     <div style={{ background:T.surface,border:`1px solid ${T.border}`,borderRadius:'10px',overflow:'hidden',marginBottom:'18px' }}>
       {/* Header */}
