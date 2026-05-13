@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import useIsMobile from '../hooks/useIsMobile';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = import.meta.env.VITE_API_URL;
 const T = {
   primary:'#003366',primaryLight:'#e8eef5',
   success:'#1a7a4a',successLight:'#e6f4ed',successBorder:'#a8d5b9',
@@ -246,7 +246,9 @@ const EnrollForm = ({ profile, username, allCourses, onSuccess, isMobile }) => {
     if (Object.keys(errs).length>0){setFormErrors(errs);return;}
     setSubmitting(true);setError('');
     try {
-      await axios.post(`${API_BASE}/api/enroll/`,{username,...form});
+      await axios.post(`${API_BASE}/api/enroll/`, {username,...form}, {
+        headers: { "ngrok-skip-browser-warning": "69420" }
+      });
       setForm({course_code:'',semester:'',grade:'IP'});
       onSuccess();
     } catch(err){
@@ -317,7 +319,9 @@ const Courses = ({ profile, username, prerequisites=[], onProfileUpdate }) => {
   const [showEnroll,     setShowEnroll]     = useState(false);
 
   useEffect(() => {
-    axios.get(`${API_BASE}/api/courses/`)
+    axios.get(`${API_BASE}/api/courses/`, {
+      headers: { "ngrok-skip-browser-warning": "69420" }
+    })
       .then(r=>setAllCourses(r.data))
       .catch(()=>setCoursesError('Could not load course catalogue.'))
       .finally(()=>setCoursesLoading(false));

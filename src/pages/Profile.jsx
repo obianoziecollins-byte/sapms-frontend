@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import useIsMobile from '../hooks/useIsMobile';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = import.meta.env.VITE_API_URL;;
 const T = {
   primary:'#003366',primaryLight:'#e8eef5',
   success:'#1a7a4a',successLight:'#e6f4ed',successBorder:'#a8d5b9',
@@ -107,6 +107,8 @@ const Profile = ({ profile, username, onProfileUpdate }) => {
         first_name:form.first_name.trim(), last_name:form.last_name.trim(),
         level:Number(form.level), specialization:form.specialization,
         cgpa:form.cgpa!==''?form.cgpa:'0.00',
+      }, {
+        headers: { "ngrok-skip-browser-warning": "69420" }
       });
       setSaveStatus('success'); setSaveMsg('Profile saved successfully.');
       onProfileUpdate();

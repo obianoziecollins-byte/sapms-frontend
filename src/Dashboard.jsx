@@ -6,7 +6,7 @@ import Home    from './pages/Home';
 import Profile from './pages/Profile';
 import Courses from './pages/Courses';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = import.meta.env.VITE_API_URL;
 
 const T = {
   primary:      '#003366',
@@ -70,8 +70,12 @@ const Dashboard = ({ username, onLogout }) => {
       setLoading(true);
       setFetchError('');
       const [profileRes, prereqRes] = await Promise.all([
-        axios.get(`${API_BASE}/api/profile/?username=${username}`),
-        axios.get(`${API_BASE}/api/prerequisites/`),
+        axios.get(`${API_BASE}/api/profile/?username=${username}`, {
+          headers: { "ngrok-skip-browser-warning": "69420" }
+        }),
+        axios.get(`${API_BASE}/api/prerequisites/`, {
+          headers: { "ngrok-skip-browser-warning": "69420" }
+        }),
       ]);
       setProfile(profileRes.data);
       setPrerequisites(prereqRes.data);
