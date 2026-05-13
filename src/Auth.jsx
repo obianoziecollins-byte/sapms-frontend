@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = import.meta.env.VITE_API_URL;
 
 // ─── Design tokens — Nile University navy blue palette ────────────────────────
 const T = {
@@ -98,7 +98,11 @@ const Auth = ({ onLoginSuccess }) => {
       : form;
 
     try {
-      const res = await axios.post(url, payload);
+      const res = await axios.post(url, payload, {
+  headers: {
+    "ngrok-skip-browser-warning": "69420"
+  }
+});
       if (isLogin) {
         // Pass username to App.jsx, which saves it and re-renders the protected route
         onLoginSuccess(res.data.username);
