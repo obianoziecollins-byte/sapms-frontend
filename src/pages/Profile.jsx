@@ -107,8 +107,6 @@ const Profile = ({ profile, username, onProfileUpdate }) => {
         first_name:form.first_name.trim(), last_name:form.last_name.trim(),
         level:Number(form.level), specialization:form.specialization,
         cgpa:form.cgpa!==''?form.cgpa:'0.00',
-      }, {
-        headers: { "ngrok-skip-browser-warning": "69420" }
       });
       setSaveStatus('success'); setSaveMsg('Profile saved successfully.');
       onProfileUpdate();

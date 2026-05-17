@@ -98,11 +98,7 @@ const Auth = ({ onLoginSuccess }) => {
       : form;
 
     try {
-      const res = await axios.post(url, payload, {
-  headers: {
-    "ngrok-skip-browser-warning": "69420"
-  }
-});
+      const res = await axios.post(url, payload);
       if (isLogin) {
         // Pass username to App.jsx, which saves it and re-renders the protected route
         onLoginSuccess(res.data.username);
