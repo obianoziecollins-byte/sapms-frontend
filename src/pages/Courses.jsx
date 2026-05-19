@@ -246,9 +246,7 @@ const EnrollForm = ({ profile, username, allCourses, onSuccess, isMobile }) => {
     if (Object.keys(errs).length>0){setFormErrors(errs);return;}
     setSubmitting(true);setError('');
     try {
-      await axios.post(`${API_BASE}/api/enroll/`, {username,...form}, {
-        headers: { "ngrok-skip-browser-warning": "69420" }
-      });
+      await axios.post(`${API_BASE}/api/enroll/`, {username,...form})
       setForm({course_code:'',semester:'',grade:'IP'});
       onSuccess();
     } catch(err){
@@ -319,9 +317,7 @@ const Courses = ({ profile, username, prerequisites=[], onProfileUpdate }) => {
   const [showEnroll,     setShowEnroll]     = useState(false);
 
   useEffect(() => {
-    axios.get(`${API_BASE}/api/courses/`, {
-      headers: { "ngrok-skip-browser-warning": "69420" }
-    })
+    axios.get(`${API_BASE}/api/courses/`)
       .then(r=>setAllCourses(r.data))
       .catch(()=>setCoursesError('Could not load course catalogue.'))
       .finally(()=>setCoursesLoading(false));
