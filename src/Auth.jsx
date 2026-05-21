@@ -79,10 +79,10 @@ const Auth = ({ onLoginSuccess }) => {
     setError('');
   };
 
-  const switchTab = (loginMode) => {
+  const switchTab = (loginMode, keepSuccess = false) => {
     setIsLogin(loginMode);
     setError('');
-    setSuccess('');
+    if (!keepSuccess) setSuccess(''); // Only clear success if we aren't bypassing it
     setForm({ full_name: '', username: '', email: '', password: '', student_id: '', specialization: '' });
   };
 
@@ -98,15 +98,17 @@ const Auth = ({ onLoginSuccess }) => {
       : form;
 
     try {
-      // Clean request without ngrok headers since Render handles traffic natively
       const res = await axios.post(url, payload);
       
       if (isLogin) {
         onLoginSuccess(res.data.username);
         navigate('/dashboard');
       } else {
-        setSuccess('Account created successfully. You can now sign in.');
-        switchTab(true);
+        // 1. Set the success state first
+        setSuccess('Student registered successfully! Please sign in with your credentials.');
+        
+        // 2. Switch to login tab, passing true to preserve the message
+        switchTab(true, true);
       }
     } catch (err) {
       setError(
@@ -200,8 +202,20 @@ const Auth = ({ onLoginSuccess }) => {
               background: T.successLight, border: `1px solid ${T.successBorder}`,
               color: T.success, padding: '10px 12px', borderRadius: '6px',
               fontSize: '13px', marginBottom: '16px',
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center'
             }}>
-              {success}
+              <span>{success}</span>
+              <button 
+                type="button"
+                onClick={() => setSuccess('')}
+                style={{
+                  background: 'none', border: 'none', color: T.success,
+                  fontWeight: '700', cursor: 'pointer', padding: '0 4px',
+                  fontSize: '12px', fontFamily: 'inherit'
+                }}
+              >
+                OK
+              </button>
             </div>
           )}
 
