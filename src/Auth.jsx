@@ -98,9 +98,10 @@ const Auth = ({ onLoginSuccess }) => {
       : form;
 
     try {
+      // Clean request without ngrok headers since Render handles traffic natively
       const res = await axios.post(url, payload);
+      
       if (isLogin) {
-        // Pass username to App.jsx, which saves it and re-renders the protected route
         onLoginSuccess(res.data.username);
         navigate('/dashboard');
       } else {
@@ -117,7 +118,6 @@ const Auth = ({ onLoginSuccess }) => {
       setLoading(false);
     }
   };
-
   return (
     <div style={{
       minHeight: '100vh', background: T.bg,
