@@ -298,8 +298,6 @@ const Auth = ({ onLoginSuccess }) => {
                 <option value="IT">Information Technology</option>
                 <option value="CC">Cloud Computing</option>
                 <option value="CG">Computer Graphics</option>
-                <option value="CN">Computer Networking & Communications</option>
-                <option value="HC">Human-Computer Interaction</option>
               </select>
             </div>
           )}
